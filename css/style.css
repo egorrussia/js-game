@@ -1,3 +1,16 @@
+.container{
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.play{
+  display: none;
+  background-color: gray;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
 #stage {
   width: 1200px;
   height: 600px;
@@ -12,9 +25,22 @@
   background-image: url(http://cdn-frm-eu.wargaming.net/wot/ru/profile/55/90/62/photo-thumb-3629055-56c06099.jpg?_r=1455448220);
 }
 
-#apple {
+.apple {
   position: absolute;
   width: 100px;
   height: 100px;
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/100px-Apple_logo_black.svg.png);
 }
+
+#cactus {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-image: url(https://kare-center.ru/upload/img_new/6/KARE-60096-100x100.jpg);
+}
+
+
+
+
+
+

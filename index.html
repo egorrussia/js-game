@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <title>JS game</title>
@@ -8,10 +8,20 @@
   <script src="js/script.js"></script>
 </head>
 <body>
-  <div id="stage">
-  	
-  	  <div id="wolf"></div>
-  	  <div id="apple"></div>
+  <div class="container">
+    <div id="game">GAME
+      score:
+      <span class="score"></span>
+      timer:
+      <span class="timer"></span>
+      <span class="play">play</span>
+    </div>
+    <div id="stage">
+      <div id="wolf"></div>
+      <div id="apple1" class="apple"></div>
+      <div id="apple2" class="apple"></div>
+      <div id="cactus"></div>
+    </div>
   </div>
 </body>
 </html>
