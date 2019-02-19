@@ -3,10 +3,11 @@ import Game from './models/game'
 $(function() {
 
 	var stage = {
-		w: 12,
-		h: 6
+		w: 12*3,
+		h: 6*3
 	}
 
+  var step = 32;
 	var Apple = function(id,left,top) {
 		  this.id = id;
       this.left = left;
@@ -21,8 +22,8 @@ $(function() {
 
 		this.draw = function() {
 		  	$(this.id).css({
-			  "top": me.top * 100 + "px",
-				"left": me.left * 100 + "px",
+			  "top": me.top * step + "px",
+				"left": me.left * step + "px",
 			})
 	  	}
 
@@ -41,8 +42,8 @@ $(function() {
 
     this.draw = function() {
         $('#cactus').css({
-        "top": me.top * 100 + "px",
-        "left": me.left * 100 + "px",
+        "top": me.top * step + "px",
+        "left": me.left * step + "px",
       })
       }
 
@@ -52,36 +53,111 @@ $(function() {
 	this.left = left;
   	this.top = top;
 
+    this.x = 0;
+    this.y = 0;
+    var nextStep = 0;
+
+    this.makeStep = function(){
+      nextStep = (nextStep + 1) % 4;
+      this.x = nextStep * 96;       
+    }
+
+    var directions ={
+      top: -288,
+      down: 0,
+      right: -192,
+      left: -96
+    };
+    
+    var direction = 'down';
+
   	this.goLeft=function(){
-  		if(this.left>0){
+      direction = 'left';
+
+      this.makeStep();
+      if(this.left>0){
   			this.left -= 1;
   		}
   	}
   
     this.goRight=function(){
+      this.makeStep();
+      direction = 'right';
   		if(this.left<stage.w-1){
   			this.left += 1;
   		}	
   	}
 
   	this.goDown=function(){
+      this.makeStep();
+      direction = 'down';
   		if(this.top<stage.h-1){
   			this.top += 1;
   		}	
   	}
 
   	this.goUp=function(){
+      this.makeStep();
+      direction = 'top';
   		if(this.top>0){
   			this.top -= 1;
   		}	
   	}
 
+    this.flame = function(){
+      var flameBall = $('<div class="flame"></div>');
+      var flameTop = me.top*step,
+      flameLeft = me.left*step,
+      startDirection = direction;
+      flameBall.css({
+        "top": flameTop + "px",
+        "left": flameLeft + "px",         
+       })
+
+      console.log(me.top);      
+      var intervalID = setInterval(function(){
+        switch(startDirection){
+          case 'left':
+            flameLeft-=100;
+          break;  
+          case 'right':
+            flameLeft+=100;
+          break;
+          case 'top':
+            flameTop-=100;
+          break;
+          case 'down':
+            flameTop+=100;
+          break;                          
+        }
+
+        flameBall.css({
+          "top": flameTop + "px",
+          "left": flameLeft + "px",         
+        })
+      },100);
+
+      setTimeout(function(){
+        clearInterval(intervalID);
+        flameBall.remove();
+      },3000);
+
+      
+
+      $('#stage').append(flameBall);
+    }
+
+
+
+
   	var me = this;
+
   
 	this.draw = function() {
 	  	$('#wolf').css({
-		    "top": me.top * 100 + "px",
-			 "left": me.left * 100 + "px",
+		    "top": me.top * step + "px",
+			 "left": me.left * step + "px",
+       'backgroundPosition': me.x + 'px ' + directions[direction] + 'px'
 		})
   	}
 };
@@ -110,9 +186,14 @@ $(document).keydown(function(e) {
   		 break;  
   	case 37:
   		 wolf.goLeft();
-  		 break;    		   		   		 
+  		 break;
+    case 32:
+       wolf.flame();
+       break;            		   		   		 
   } 
 })
+
+
 
 function proc() {
 	if(apple1.left == wolf.left && apple1.top == wolf.top){
@@ -149,10 +230,10 @@ setInterval(function() {
   };  
   proc();
 	draw();
-}, 30);
+}, 100);
 
 setInterval(function() {
-  game.timer -= 1;
+  //game.timer -= 1;
 }, 1000);
 
  $("#game .play").click(
