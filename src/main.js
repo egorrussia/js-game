@@ -1,46 +1,11 @@
+import Game from './models/game'
+
 $(function() {
 
 	var stage = {
 		w: 12,
 		h: 6
 	}
-
-
-  var Game = function() {
-    this.timer = 10;
-    this.score = 0;
-    this.active = true;
-    
-    this.stop = function() {
-
-      this.active = false;
-
-    }
-
-    this.start = function() {
-
-      this.active = true;
-      this.timer = 10;
-      this.score = 0;
-
-    }
-
-    this.draw = function() {
-      $('#game .score').html(
-        this.score
-      )
-      $('#game .timer').html(
-        this.timer
-      )
-      if(!this.active){
-        $("#game .play").css("display","inline");
-      }else{
-        $("#game .play").css("display","none");
-      }
-    }
-
-
-  }
 
 	var Apple = function(id,left,top) {
 		  this.id = id;
@@ -174,7 +139,7 @@ function draw() {
 	wolf.draw();
 	apple1.draw();
   apple2.draw();
-  game.draw();
+  game.draw($);
   cactus.draw();
 }
 
