@@ -1,6 +1,38 @@
 import Game from './models/game'
+import {
+  createHouse,
+  createPortal
+} from './models/buildings'
 
 $(function() {
+
+  var gameMap = {
+    // bg
+    houses: [{
+      w: 3,
+      h: 3,
+      img: 'img/house.png',
+      x: 5,
+      y: 4
+    }, {
+      w: 3,
+      h: 3,
+      img: 'img/house.png',
+      x: 4,
+      y: 3
+    }, {
+      w: 4,
+      h: 4,
+      img: 'img/house.png',
+      x: 20,
+      y: 10
+    }]
+  }
+
+  var stageEl = document.getElementById('stage');
+  gameMap['houses'].forEach(function(el) {
+    createHouse(el, game, stageEl);
+  });
 
 	var stage = {
 		w: 12*3,
@@ -157,6 +189,7 @@ $(function() {
 	  	$('#wolf').css({
 		    "top": me.top * step + "px",
 			 "left": me.left * step + "px",
+       "zIndex": me.top,
        'backgroundPosition': me.x + 'px ' + directions[direction] + 'px'
 		})
   	}

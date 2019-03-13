@@ -72,5 +72,11 @@
 }
 
 
+.house {
+  z-index: 100;
+  position: absolute;
+  background-size: cover;
+}
+
 
 
