@@ -11,9 +11,17 @@ var Human = function(id,left,top) {
     this.top = top;
     
     var me = this;
+
+    var randDirection = Math.floor(Math.random()*4);
+    var lostSteps = Math.floor(Math.random()*10);
   
     this.randomStep = function(){
-      var randDirection = Math.floor(Math.random()*4);
+      lostSteps--;
+      if(lostSteps < 1) {
+        randDirection = Math.floor(Math.random()*4);
+        lostSteps = Math.floor(Math.random()*10);
+      }
+
       switch(randDirection){
         case 0:
           me.goRight();
