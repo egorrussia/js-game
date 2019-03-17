@@ -1,5 +1,10 @@
 // создание человека, размещение на сцене
 var Human = function(id,left,top) {
+  var stage = {
+    w: 12*3,
+    h: 6*3
+  }
+
     var step = 32;
     this.id = id;
     this.left = left;
