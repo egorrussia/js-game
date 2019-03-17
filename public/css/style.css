@@ -30,8 +30,15 @@
   background: url(http://untamed.wild-refuge.net/images/rpgxp/ff/bahamut.png);
   width: 96px;
   height: 96px;
-  transition: top 0.5s;
-  transition: left 0.5s;
+  transition: top 0.5s left 0.5s;
+}
+
+.human {
+  position: absolute;
+  background: url(http://untamed.wild-refuge.net/images/rpgxp/kavi.png);
+  width: 96px;
+  height: 96px;
+  transition: top 0.5s left 0.5s;
 }
 
 #wolf:after,#dr:after {

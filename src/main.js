@@ -4,6 +4,10 @@ import {
   createPortal
 } from './models/buildings'
 
+import { 
+  createHuman
+} from './models/human'
+
 $(function() {
 
   var gameMap = {
@@ -26,6 +30,12 @@ $(function() {
       img: 'img/house.png',
       x: 20,
       y: 10
+    }],
+    humans: [{
+      w: 1,
+      h: 1.5,
+      x: 30,
+      y: 15
     }]
   }
 
@@ -33,6 +43,17 @@ $(function() {
   gameMap['houses'].forEach(function(el) {
     createHouse(el, game, stageEl);
   });
+
+  var human;
+  gameMap['humans'].forEach(function(el) {
+    human = createHuman(el, game, stageEl);
+    setInterval(function() {
+
+      human.randomStep();
+
+    }, 100);
+  });
+
 
 	var stage = {
 		w: 12*3,
@@ -255,6 +276,7 @@ function draw() {
   apple2.draw();
   game.draw($);
   cactus.draw();
+  human.draw();
 }
 
 setInterval(function() {
