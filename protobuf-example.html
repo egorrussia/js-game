@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Protobuf example</title>
+  <script src="https://cdn.rawgit.com/dcodeIO/protobuf.js/6.8.8/dist/protobuf.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script>
+  const Root  = protobuf.Root,
+    Type  = protobuf.Type,
+    Field = protobuf.Field;
+
+  // get urls
+
+  protobuf.load("offer_collection.proto", function(err, root) {
+    const offerCollection = root.lookupType("tutorial.OfferCollection");
+
+    var url = 'offer';
+    axios.get(url, {
+      responseType: "arraybuffer"
+    }).then(function(response) {
+      console.log({response})
+      // decode encoded data received from server
+      const offerCollectionResult = offerCollection.decode(new Uint8Array(response.data));
+      console.log({offerCollectionResult})
+      var id = offerCollectionResult.offers[0].id.toString().split(',').map(function(num) {
+        var str = parseInt(num).toString(16);
+        if(str.length == 1) {
+          str = '0'+str;
+        }
+        if(str == '0') {
+          str = '00';
+        }
+        return str;
+      }).join('');
+      console.log({id})
+
+      // post to store data
+    });
+  });
+</script>
+</head>
+<body>
+  
+</body>
+</html>

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package tutorial;
+
+message Offer {
+  bytes id = 1;
+  string title = 2;
+}
+
+message OfferCollection {
+  repeated Offer offers = 1;
+}
